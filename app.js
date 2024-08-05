@@ -67,24 +67,28 @@ io.on("connection", function (uniquesocket) {
             if(chess.turn() === "b" && uniquesocket.id !== players.black) return;
             
             // result store true/false if the correct move is being done than the chess.move will result true and if is executed
-            // if false is return than try will fail and catch is executed and error is thrown
+            // if below one fail due to engine failure than it redirect to catch error after failure in try.
             const result = chess.move(move); // this will move in backend memory, and to run in frontend we have to emit in boardState
 
             if(result){
                 currentPlayer = chess.turn(); // this will return w or b which tell whom turn
                 io.emit("move", move); //we return the move to the frontend and to every tab that are open to player1 , player2, spectator.
-                io.emit("boardState", ) //we have also transfer the game state to frontend. 
+                // ex- The FEN piece placement field for this position is "r1bk3r/p2pBpNp/n4n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1" bascially this show the current state of the board.
+                io.emit("boardState", chess.fen()); //we have also transfer the game state to frontend. 
+            }
+            else{
+                // basically here we transfer the reason due to which error occur.
+                console.log("Invalid move : ", move);
+                uniquesocket.emit("invalidMove", move);
             }
         }
         catch(err){
-            
+            console.log(err);
+            uniquesocket.emit("invalidMove", move);
         }
       });
 
   });
-
-  
-  
 
 // HERE WE DON'T USE APP.LISTEN INSTEAD of it we use server.listen that is made up of using http form app.
 server.listen(3000, function() {
