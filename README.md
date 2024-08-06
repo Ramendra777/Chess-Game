@@ -23,7 +23,12 @@ This project is a real-time online chess game built using Node.js, Express, Sock
    ```bash
    npx nodemon dirname
 
+## Screenshot
+
+![Screenshot 2024-08-06 221636](https://github.com/user-attachments/assets/8365c41e-f19b-49dc-b024-e9a0ad3d6e1c)
+
 ## Usage
+
 1. Open the game in your browser:
 - Navigate to http://localhost:3000 in your web browser.
 
@@ -32,3 +37,10 @@ This project is a real-time online chess game built using Node.js, Express, Sock
 - Start a new game by connecting to a server.
 - Make moves by clicking on pieces and selecting destinations.
 - Chat with other players in real-time.
+
+## Features
+
+- Real-Time Gameplay: Players can join as either the white or black player, or as spectators who watch the game.
+- Move Validation: Ensures that moves follow the official chess rules.
+- Board State: Keeps track of the current state of the board and shares it with everyone connected.
+- Spectator Mode: Users who join after the first two players can watch the game.
